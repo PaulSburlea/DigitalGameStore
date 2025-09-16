@@ -25,13 +25,13 @@ public:
     ~Game() = default;
 
     // getters
-    std::string getName() const;
-    std::string getCategory() const;
-    double getPrice() const;
-    double getSizeGB() const;
-    int getTimesBought() const;
-    bool isPurchased() const;
-    bool isInstalled() const;
+    [[nodiscard]] std::string getName() const;
+    [[nodiscard]] std::string getCategory() const;
+    [[nodiscard]] double getPrice() const;
+    [[nodiscard]] double getSizeGB() const;
+    [[nodiscard]] int getTimesBought() const;
+    [[nodiscard]] bool isPurchased() const;
+    [[nodiscard]] bool isInstalled() const;
 
     // setters
     void setPrice(double price);

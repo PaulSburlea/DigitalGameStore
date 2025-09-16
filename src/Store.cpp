@@ -84,3 +84,44 @@ bool Store::buyGame(const std::string &name) {
     }
     return false;
 }
+
+// bundle functions
+bool Store::addBundle(const Bundle &bundle) {
+    auto it = std::find_if(bundles.begin(), bundles.end(), [&bundle](const Bundle& b) {return bundle.getBundleName() == b.getBundleName();});
+
+    if (it == bundles.end()) {
+        bundles.push_back(bundle);
+        return true;
+    }
+    return false;
+}
+
+bool Store::removeBundle(const std::string &bundleName) {
+    const size_t oldSize = bundles.size();
+    auto it = std::remove_if(bundles.begin(), bundles.end(), [&bundleName](const Bundle& b){return b.getBundleName() == bundleName;});
+
+    bundles.erase(it, bundles.end()) ;
+
+    return bundles.size() != oldSize;
+}
+
+bool Store::buyBundle(const std::string &bundleName) {
+    auto it = std::find_if(bundles.begin(), bundles.end(), [&bundleName](const Bundle& b){return b.getBundleName() == bundleName;});
+
+    if (it == bundles.end()) {
+        return false;
+    }
+    Bundle& bundle = *it;
+    for (const auto& g : bundle.getGames()) {
+        if (Game* gameInStore = getGame(g.getName())) {
+            gameInStore->purchase();
+        }
+    }
+    return true;
+}
+
+const std::vector<Bundle> &Store::listBundles() const {
+    return bundles;
+}
+
+
