@@ -13,18 +13,6 @@ void Game::purchase() {
     increaseTimesBought();
 }
 
-bool Game::install(const double availableMemory) {
-    if (!purchased || sizeGB > availableMemory) {
-        return false;
-    }
-    installed = true;
-    return true;
-}
-
-void Game::uninstall() {
-    installed = false;
-}
-
 void Game::increaseTimesBought() {
     ++timesBought;
 }
@@ -55,13 +43,6 @@ int Game::getTimesBought() const {
     return timesBought;
 }
 
-
-// setters
-void Game::setPrice(double price) {
-    this->price = price;
-}
-
-
 bool Game::isPurchased() const {
     return purchased;
 }
@@ -70,7 +51,10 @@ bool Game::isInstalled() const {
 }
 
 
-
-
-
-
+// setters
+void Game::setPrice(const double price) {
+    this->price = price;
+}
+void Game::setInstalled(const bool installed) {
+    this->installed = installed;
+}

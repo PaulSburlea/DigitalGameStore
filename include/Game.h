@@ -35,11 +35,10 @@ public:
 
     // setters
     void setPrice(double price);
+    void setInstalled(bool installed);
 
     // functions
     void purchase();
-    bool install (double availableMemory);
-    void uninstall();
     void increaseTimesBought();
     void printInfo() const;
 
