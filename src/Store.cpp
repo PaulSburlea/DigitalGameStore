@@ -1,14 +1,16 @@
-//
-// Created by G713 on 11.09.2025.
-//
-
-#include "../include/Store.h"
-#include "../include/Game.h"
+#include "Store.h"
+#include "Game.h"
 
 #include <algorithm>
 #include <vector>
+#include <fstream>
+#include <nlohmann/json.hpp>
 
+// "manual" constructor
 Store::Store(const std::vector<Game> &games) : games(games){}
+
+Store::Store() {}
+
 
 // function to add a new game
 void Store::addGame(const Game &game) {
@@ -46,7 +48,7 @@ Game *Store::getGame(const std::string &name) {
     return nullptr;
 }
 
-const std::vector<Game> &Store::listGames() {
+const std::vector<Game> &Store::listGames() const {
     return games;
 }
 
@@ -124,4 +126,47 @@ const std::vector<Bundle> &Store::listBundles() const {
     return bundles;
 }
 
+Game *Store::getGameByID(int ID) {
+    auto it = std::find_if(games.begin(), games.end(),
+        [ID](const Game& g){return g.getId() == ID;});
 
+    if (it != games.end()) {
+        return &(*it);
+    }
+    return nullptr;
+}
+
+
+// json handling
+// save store to JSON
+void Store::saveToJSON(const std::string& path) const {
+    json j;
+    j["games"] = games;
+    j["bundles"] = bundles;
+
+    std::ofstream file(path);
+    file << j.dump(4);
+}
+
+void Store::loadFromJSON(const std::string& path) {
+    std::ifstream file(path);
+    if (!file.is_open()) return;
+
+    json j;
+    file >> j;
+
+    games = j["games"].get<std::vector<Game>>();
+
+    bundles.clear();
+    for (const auto& bj : j["bundles"]) {
+        bundles.push_back(Bundle::from_json_with_store(bj, games));
+    }
+
+    int maxGameID = 0;
+    for (const auto& g : games) if (g.getId() > maxGameID) maxGameID = g.getId();
+    Game::updateNextID(maxGameID + 1);
+
+    int maxBundleID = 0;
+    for (const auto& b : bundles) if (b.getId() > maxBundleID) maxBundleID = b.getId();
+    Bundle::updateNextID(maxBundleID + 1);
+}

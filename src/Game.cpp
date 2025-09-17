@@ -1,12 +1,26 @@
-//
-// Created by G713 on 11.09.2025.
-//
+#include "Game.h"
+
 #include <utility>
+#include <iostream>
 
-#include "../include/Game.h"
+int Game::nextID = 1;
 
+// constructor games from json
 Game::Game(std::string name, std::string category, const double price, const double sizeGB) :
-name(std::move(name)), category(std::move(category)), price(price), sizeGB(sizeGB), purchased(false), installed(false), timesBought(0){}
+ID(nextID++),
+name(std::move(name)),
+category(std::move(category)),
+price(price),
+sizeGB(sizeGB) {}
+
+// constructor for new games
+Game::Game(const int ID, std::string name, std::string category, const double price, const double sizeGB) :
+ID(ID),
+name(std::move(name)),
+category(std::move(category)),
+price(price),
+sizeGB(sizeGB) {}
+
 
 void Game::purchase() {
     purchased = true;
@@ -27,9 +41,17 @@ void Game::printInfo() const {
     << "Times bought: " << timesBought << std::endl;
 }
 // getters
+int Game::getId() const {
+    return ID;
+}
+
 std::string Game::getName() const {
     return name;
 }
+int Game::getNextID() {
+    return nextID;
+}
+
 std::string Game::getCategory() const {
     return category;
 }
@@ -52,9 +74,22 @@ bool Game::isInstalled() const {
 
 
 // setters
+void Game::setID(const int newID) {
+    ID = newID;
+}
+
+void Game::updateNextID(const int newValue) {
+    nextID = newValue;
+}
+
 void Game::setPrice(const double price) {
     this->price = price;
 }
+
 void Game::setInstalled(const bool installed) {
     this->installed = installed;
+}
+
+void Game::setTimesBought(const int times) {
+    timesBought = times;
 }

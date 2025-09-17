@@ -1,8 +1,5 @@
-//
-// Created by G713 on 11.09.2025.
-//
-#include "../include/User.h"
-#include "../include/Store.h"
+#include "User.h"
+#include "Store.h"
 
 #include <algorithm>
 #include <utility>

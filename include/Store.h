@@ -1,11 +1,11 @@
-//
-// Created by G713 on 11.09.2025.
-//
-
 #pragma once
-#include <vector>
+
 #include "Game.h"
 #include "Bundle.h"
+
+#include <vector>
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
 
 class Store {
 private:
@@ -13,8 +13,10 @@ private:
     std::vector<Bundle> bundles;
 
 public:
-    // constructor
+    // "manual" constructor
     explicit Store(const std::vector<Game>& games);
+
+    explicit Store();
 
     // destructor
     ~Store() = default;
@@ -26,9 +28,10 @@ public:
 
     // data access
     Game* getGame(const std::string& name);
-    const std::vector<Game>& listGames();
-    [[nodiscard]] std::vector<const Game*> listGamesByCategory(const std::string& category) const;
+    const std::vector<Game>& listGames() const ;
+    std::vector<const Game*> listGamesByCategory(const std::string& category) const;
     std::vector<Game> getMostBoughtGames(size_t topCount);
+    Game* getGameByID(int ID);
 
     //action
     bool buyGame(const std::string& name);
@@ -36,7 +39,11 @@ public:
     // bundle functions
     bool addBundle(const Bundle& bundle);
     bool removeBundle(const std::string& bundleName);
-    [[nodiscard]] const std::vector<Bundle>& listBundles() const;
+    const std::vector<Bundle>& listBundles() const;
     bool buyBundle(const std::string& bundleName);
+
+    // json handling
+    void saveToJSON(const std::string& path) const;
+    void loadFromJSON(const std::string& path);
 
 };
