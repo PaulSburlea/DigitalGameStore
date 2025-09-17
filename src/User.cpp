@@ -8,13 +8,14 @@ User::User(std::string username) : username(std::move(username)), consoleStorage
 
 
 bool User::buyGame(const std::string& gameName, Store& store) {
-    const Game *g = store.getGame(gameName);
+    Game *g = store.getGame(gameName);
 
-    if (g == nullptr) {
+    if (!g)
         return false;
-    }
+
     if (store.buyGame(gameName)) {
-        boughtGames.push_back(*g);
+        boughtGames.push_back(g);
+        store.saveToJSON("data/store.json");
     }
     return true;
 }
@@ -27,53 +28,58 @@ bool User::buyBundle(const std::string& bundleName, Store& store) {
     }
     const Bundle& bundle = *it;
 
-    for (const auto& g : bundle.getGames()) {
-        store.buyGame(g.getName());
-        boughtGames.push_back(g);
+    for (const auto& gBundle : bundle.getGames()) {
+        Game* g = store.getGame(gBundle.getName());
+        if (g && store.buyGame(g->getName())) {
+            boughtGames.push_back(g);
+            store.saveToJSON("data/store.json");
+        }
     }
     return true;
 }
 
 bool User::installGame(const std::string &gameName) {
     const auto it = std::find_if(boughtGames.begin(), boughtGames.end(),
-        [&gameName](const Game& g){return g.getName() == gameName;});
+        [&gameName](const Game* g){return g->getName() == gameName;});
 
     if (it == boughtGames.end())
         return false;
 
-    if (it->getSizeGB() > consoleStorage)
+    Game* g = *it;
+    if (g->getSizeGB() > consoleStorage)
         return false;
 
-    it->setInstalled(true);
-    consoleStorage -= it->getSizeGB();
+    g->setInstalled(true);
+    consoleStorage -= g->getSizeGB();
     return true;
 
 }
 
 bool User::uninstallGame(const std::string &gameName) {
     const auto it = std::find_if(boughtGames.begin(), boughtGames.end(),
-        [&gameName](const Game& g){return g.getName() == gameName;});
+        [&gameName](const Game* g){return g->getName() == gameName;});
 
     if (it == boughtGames.end())
         return false;
 
-    if (!it->isInstalled())
+    Game* g = *it;
+    if (!g->isInstalled())
         return false;
 
-    it->setInstalled(false);
-    consoleStorage += it->getSizeGB();
+    g->setInstalled(true);
+    consoleStorage += g->getSizeGB();
     return true;
 }
 
-const std::vector<Game>& User::listPurchasedGames() {
+const std::vector<Game*>& User::listPurchasedGames() {
     return boughtGames;
 }
 
-std::vector<Game> User::listInstalledGames() {
+std::vector<Game> User::listInstalledGames() const {
     std::vector<Game> installedGames;
-    for ( auto& game : boughtGames) {
-        if (game.isInstalled()) {
-            installedGames.push_back(game);
+    for ( auto* game : boughtGames) {
+        if (game->isInstalled()) {
+            installedGames.push_back(*game);
         }
     }
     return installedGames;

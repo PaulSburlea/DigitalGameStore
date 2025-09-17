@@ -8,8 +8,8 @@ class Game {
 private:
     int ID = 0;
     static int nextID;
-    std::string name = "";
-    std::string category = "";
+    std::string name;
+    std::string category;
     double price = 0.0;
     double sizeGB = 0.0;
 

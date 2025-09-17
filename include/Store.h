@@ -16,7 +16,7 @@ public:
     // "manual" constructor
     explicit Store(const std::vector<Game>& games);
 
-    explicit Store();
+    explicit Store() = default;
 
     // destructor
     ~Store() = default;

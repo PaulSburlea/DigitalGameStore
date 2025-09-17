@@ -1,17 +1,105 @@
 {
-  "games": [
-    {"id": 1, "name": "Cyberpunk 2077", "category": "RPG", "price": 59.99, "sizeGB": 70.0, "timesBought": 120},
-    {"id": 2, "name": "The Witcher 3", "category": "RPG", "price": 39.99, "sizeGB": 50.0, "timesBought": 250},
-    {"id": 3, "name": "Minecraft", "category": "Sandbox", "price": 26.95, "sizeGB": 5.0, "timesBought": 500},
-    {"id": 4, "name": "FIFA 24", "category": "Sports", "price": 59.99, "sizeGB": 45.0, "timesBought": 300},
-    {"id": 5, "name": "Fortnite", "category": "Battle Royale", "price": 0.0, "sizeGB": 30.0, "timesBought": 1000},
-    {"id": 6, "name": "DOOM Eternal", "category": "FPS", "price": 49.99, "sizeGB": 40.0, "timesBought": 180},
-    {"id": 7, "name": "Stardew Valley", "category": "Simulation", "price": 14.99, "sizeGB": 1.0, "timesBought": 220},
-    {"id": 8, "name": "Among Us", "category": "Party", "price": 4.99, "sizeGB": 0.5, "timesBought": 450}
-  ],
-  "bundles": [
-    {"id": 1, "bundleName": "RPG Starter Pack", "games": ["Cyberpunk 2077", "The Witcher 3"], "price": 89.99},
-    {"id": 2, "bundleName": "Casual Fun Pack", "games": ["Stardew Valley", "Among Us"], "price": 17.99},
-    {"id": 3, "bundleName": "Sports Collection", "games": ["FIFA 24", "Fortnite"], "price": 59.99}
-  ]
+    "bundles": [
+        {
+            "bundleName": "RPG Starter Pack",
+            "games": [
+                "Cyberpunk 2077",
+                "The Witcher 3"
+            ],
+            "id": 1,
+            "price": 89.99
+        },
+        {
+            "bundleName": "Casual Fun Pack",
+            "games": [
+                "Stardew Valley",
+                "Among Us"
+            ],
+            "id": 2,
+            "price": 17.99
+        },
+        {
+            "bundleName": "Sports Collection",
+            "games": [
+                "FIFA 24",
+                "Fortnite"
+            ],
+            "id": 3,
+            "price": 59.99
+        }
+    ],
+    "games": [
+        {
+            "category": "RPG",
+            "id": 1,
+            "name": "Cyberpunk 2077",
+            "price": 59.99,
+            "sizeGB": 70.0,
+            "timesBought": 120
+        },
+        {
+            "category": "RPG",
+            "id": 2,
+            "name": "The Witcher 3",
+            "price": 39.99,
+            "sizeGB": 50.0,
+            "timesBought": 250
+        },
+        {
+            "category": "Sandbox",
+            "id": 3,
+            "name": "Minecraft",
+            "price": 26.95,
+            "sizeGB": 5.0,
+            "timesBought": 500
+        },
+        {
+            "category": "Sports",
+            "id": 4,
+            "name": "FIFA 24",
+            "price": 59.99,
+            "sizeGB": 45.0,
+            "timesBought": 300
+        },
+        {
+            "category": "Battle Royale",
+            "id": 5,
+            "name": "Fortnite",
+            "price": 0.0,
+            "sizeGB": 30.0,
+            "timesBought": 1001
+        },
+        {
+            "category": "FPS",
+            "id": 6,
+            "name": "DOOM Eternal",
+            "price": 49.99,
+            "sizeGB": 40.0,
+            "timesBought": 180
+        },
+        {
+            "category": "Simulation",
+            "id": 7,
+            "name": "Stardew Valley",
+            "price": 14.99,
+            "sizeGB": 1.0,
+            "timesBought": 220
+        },
+        {
+            "category": "Party",
+            "id": 8,
+            "name": "Among Us",
+            "price": 4.99,
+            "sizeGB": 0.5,
+            "timesBought": 450
+        },
+        {
+            "category": "FPS",
+            "id": 9,
+            "name": "CS2",
+            "price": 13.0,
+            "sizeGB": 25.0,
+            "timesBought": 0
+        }
+    ]
 }

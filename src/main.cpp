@@ -36,7 +36,6 @@ int main() {
                 std::cin.get();
                 break;
         }
-
         store.saveToJSON("data/store.json");
     }
 }

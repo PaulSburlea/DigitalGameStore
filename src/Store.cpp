@@ -9,8 +9,6 @@
 // "manual" constructor
 Store::Store(const std::vector<Game> &games) : games(games){}
 
-Store::Store() {}
-
 
 // function to add a new game
 void Store::addGame(const Game &game) {

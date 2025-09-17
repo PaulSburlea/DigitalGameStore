@@ -10,7 +10,7 @@ class User {
 private:
     std::string username;
     double consoleStorage;
-    std::vector<Game> boughtGames;
+    std::vector<Game*> boughtGames;
 
 public:
     // constructor
@@ -25,7 +25,7 @@ public:
     bool buyBundle(const std::string& bundleName, Store& store);
     bool installGame(const std::string& gameName);
     bool uninstallGame(const std::string& gameName);
-    const std::vector<Game>& listPurchasedGames();
-    std::vector<Game> listInstalledGames();
+    const std::vector<Game*>& listPurchasedGames();
+    std::vector<Game> listInstalledGames() const;
 
 };
